@@ -1,0 +1,21 @@
+{
+  "name": "blocipedia",
+  "version": "1.0.0",
+  "description": "Wiki for Bloc",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "set NODE_ENV=test&& jasmine",
+    "start": "node src/server.js"
+  },
+  "author": "Jack Sargent",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jasmine": "^3.4.0",
+    "jasmine-node": "^3.0.0",
+    "pg": "^7.11.0",
+    "pg-hstore": "^2.3.3",
+    "request": "^2.88.0",
+    "sequelize": "^5.8.10"
+  }
+}
