@@ -21,6 +21,7 @@
     "faker": "^4.1.0",
     "jasmine": "^3.4.0",
     "jasmine-node": "^3.0.0",
+    "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pg": "^7.11.0",
