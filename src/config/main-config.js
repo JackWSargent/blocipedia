@@ -13,7 +13,7 @@ module.exports = {
         app.set("views", viewsFolder);
         app.set("view engine", "ejs");
         app.use(bodyParser.urlencoded({ extended: true }));
-        app.use(cookieSession({cookieSecret="do not let this get checked into version control"}));
+        //app.use(cookieSession({cookieSecret="do not let this get checked into version control"}));
         app.use(session({
             secret: process.env.cookieSecret,
             resave: false,
