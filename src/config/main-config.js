@@ -12,12 +12,13 @@ module.exports = {
         app.set("views", viewsFolder);
         app.set("view engine", "ejs");
         app.use(bodyParser.urlencoded({ extended: true }));
-        // app.use(session({
-        //     secret: process.env.cookieSecret,
-        //     resave: false,
-        //     saveUninitialized: false,
-        //     cookie: { maxAge: 1.21e+9 } //set cookie to expire in 14 days
-        // }));
+        app.use(express.cookieParser('do not let this get checked into version control'));
+        app.use(session({
+            secret: process.env.cookieSecret,
+            resave: false,
+            saveUninitialized: false,
+            cookie: { maxAge: 1.21e+9 } //set cookie to expire in 14 days
+        }));
         app.use(flash());
         passportConfig.init(app);
         // app.use((req,res,next) => {
