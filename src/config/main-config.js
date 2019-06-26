@@ -7,12 +7,13 @@ const expressValidator = require("express-validator");
 const session = require("express-session");
 const flash = require("express-flash");
 const passportConfig = require("./passport-config");
+const cookieSession = require("cookie-session");
 module.exports = {
     init(app, express){
         app.set("views", viewsFolder);
         app.set("view engine", "ejs");
         app.use(bodyParser.urlencoded({ extended: true }));
-        app.use(express.cookieParser('do not let this get checked into version control'));
+        app.use(cookieSession({cookieSecret="do not let this get checked into version control"}));
         app.use(session({
             secret: process.env.cookieSecret,
             resave: false,
