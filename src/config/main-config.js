@@ -26,6 +26,6 @@ module.exports = {
         // })
         app.use(express.static(path.join(__dirname, "..", "assets")));
         app.use(expressValidator());
-        app.use(logger);
+        app.use(logger('combined'));
       }
 };
