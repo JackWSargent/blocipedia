@@ -7,7 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isEmail: { msg: "must be a valid email" }
+      }
     },
     password: {
       type: DataTypes.STRING,
@@ -15,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   User.associate = function(models) {
-    // associations can be defined here
   };
   return User;
 };
