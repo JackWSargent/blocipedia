@@ -137,7 +137,7 @@ describe("routes : wikis", () => {
                         body: "There are a lot of them",
                         private: false
                     }
-                };
+                };//
                 request.post(options,
                 (err, res, body) => {
                     expect(err).toBeNull();
