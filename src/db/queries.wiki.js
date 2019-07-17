@@ -2,12 +2,14 @@ const Wiki = require("./models").Wiki;
 //const Authorizer = require("../policies/wiki");
 module.exports = {
   getAllWikis(callback){
+      console.log("Getting all wikis...");
     return Wiki.findAll()
     .then((wikis) => {
-        //console.log("Found all wikis");
+        console.log("Found all wikis");
       callback(null, wikis);
     })
     .catch((err) => {
+        console.log("Not finding all wikis " + err);
       callback(err);
     })
   },

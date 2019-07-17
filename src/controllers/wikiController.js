@@ -3,11 +3,13 @@ const wikiQueries = require("../db/queries.wiki.js");
 
 module.exports = {
     index(req,res,next) {
-        console.log("Getting wiks");
+        console.log("Getting wikis");
         wikiQueries.getAllWikis((err, wikis) => {
             if(err){
+                console.log("Error at index in controller + " + err);
                 res.redirect(500, "static/index")
             } else {
+                console.log("Got all wikis in controller");
                 res.render("wikis/index", {wikis});
             }
         })
