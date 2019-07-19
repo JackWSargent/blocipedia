@@ -1,9 +1,9 @@
 const wikiQueries = require("../db/queries.wiki.js");
-//const Authorizer = require("../policies/wikis");
+const Authorizer = require("../policies/wiki");
 
 module.exports = {
     index(req,res,next) {
-        console.log("Getting wiks");
+        //console.log("Getting wiks");
         wikiQueries.getAllWikis((err, wikis) => {
             if(err){
                 res.redirect(500, "static/index")
@@ -13,17 +13,18 @@ module.exports = {
         })
     },
     new(req,res,next){
-        const authorized = true;
+        const authorized = new Authorizer(req.user).new();
         if(authorized){
             res.render("wikis/new")
         } else {
+            console.log("Not authorized");
             req.flash("notice", "You are not authorized to do that.");
             res.redirect("/wikis");
         }
     },
     create(req,res,next){ 
         //console.log("creating new wiki");
-        const authorized = true;
+        const authorized = new Authorizer(req.user).create();
         if(authorized){
             let newwiki = {
                 name: req.body.name,
@@ -56,9 +57,10 @@ module.exports = {
         //console.log("destroying in controller");
         wikiQueries.deleteWiki(req, (err, wiki) => {
             if(err){
-                //console.log("error in controller");
+                //console.log("error destroying in controller");
                 res.redirect(`/wikis/` + req.params.id)
             } else {
+                //console.log("not authorized to destroy");
                 res.redirect(303, "/wikis");
             }
         })
@@ -68,10 +70,11 @@ module.exports = {
           if(err || wiki == null){
             res.redirect(404, "/");
           } else {
-          const authorized = true;
+          const authorized = new Authorizer(req.user).edit();
           if(authorized){
             res.render("wikis/edit", {wiki});
           } else {
+              //console.log("not authorized to edit");
             req.flash("You are not authorized to do that.")
             res.redirect(`/wikis/${req.params.id}`)
           }

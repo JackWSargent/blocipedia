@@ -18,7 +18,7 @@ module.exports = {
                 req.flash("error", err);
                 res.redirect("/users/sign_up");
             } else {
-                console.log("creating user: " + req.body.username);
+                //console.log("creating user: " + req.body.username);
                 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
                 const msg = {
                     to: req.body.email,

@@ -31,7 +31,8 @@ describe("routes : users", () => {
               form: {
                 username: "user5",
                 email: "user@example.com",
-                password: "123456789"
+                password: "123456789",
+                role: "0"
               }
             }
             request.post(options,
