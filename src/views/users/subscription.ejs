@@ -10,19 +10,14 @@
       <h1>User Upgrade</h1>
       <!--<a class="btn btn-success" href="/users<% currentUser.id %>/upgradeToPremium/">Click to Subscribe for $15</a>-->
       
-      <form method="POST" action="/users<% currentUser.id %>/upgradeToPremium/"> 
+      <form method="POST" action="/users/<%= currentUser.id %>/upgradeToPremium/"> 
       <!-- https://stripe.com/docs/checkout/express -->
       <article><label>Premium Blocipedia Membership: $15.00</label></article>
-      <script 
-      src="//checkout.stripe.com/v2/checkout.js" 
-      class="stripe-button"
-      data-key=keyPublishable
-      date-locale="auto"
-      data-description="Premium"
-      data-amount="1500"></script>
-
+      <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="<%=keyPublishable%>" data-amount="1500" data-name="Demo Site" data-description="Blocipedia Premium Membership" data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                data-locale="auto">
+              </script>
       </form> 
-      <a class="btn btn-secondary" href="/users<% currentUser.id %>/downgradeToFree/">Unsubscribe</a>
+      <a class="btn btn-secondary" href="/users<%= currentUser.id %>/downgradeToFree/">Unsubscribe</a>
     </main>
   </body>
 </html>

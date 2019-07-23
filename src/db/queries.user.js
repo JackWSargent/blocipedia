@@ -37,32 +37,26 @@ module.exports = {
       callback(err);
     })
   },
-  upgradeToPremium(id, callback){
+  upgradeToPremium(id){
     return User.findByPk(id)
     .then((user) => {
-      if(!user){
-        return callback("No user");
-      } else {
-        return user.updateAttributes({role: 1});
+      if(user){
+        return user.update({role: 1});
       }
     })
     .catch((err) => {
       console.log(err);
-      callback(err);
     })
   },
-  downgradeToFree(id, callback){
+  downgradeToFree(id){
     return User.findByPk(id)
     .then((user) => {
-      if(!user){
-        return callback("No user");
-      } else {
-        return user.updateAttributes({role: 0});
+      if(user){
+        return user.update({role: 0});
       }
     })
     .catch((err) => {
       console.log(err);
-      callback(err);
     })
   }
 }
