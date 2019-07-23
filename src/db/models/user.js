@@ -23,8 +23,8 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   User.associate = function(models) {
-    User.prototype.isAdmin = function() {
-      return this.role === "1";
+    User.prototype.isPremium = function() {
+      return this.role === 1;
     };
   };
   return User;

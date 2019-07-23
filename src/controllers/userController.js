@@ -1,6 +1,9 @@
 const userQueries = require("../db/queries.user.js");
 const passport = require("passport");
 const sgMail = require("@sendgrid/mail");
+const secretKey = process.env.SECRETKEY;
+const keyPublishable = process.env.PUBLISHABLEKEY;
+const stripe = require('stripe')(secretKey);
 module.exports = {
     signUp(req, res, next){
         res.render("users/sign_up");
@@ -53,6 +56,43 @@ module.exports = {
     signOut(req, res, next){
         req.logout();
         req.flash("notice", "You've successfully signed out!");
+        res.redirect("/");
+    },
+    // show(req, res, next){
+    //     userQueries.getUser(req.params.id, (err, result) => {
+    //         if(err || result.user === undefined){
+    //             req.flash("notice", "No user found with that ID.");
+    //             res.redirect("/");
+    //         } else {
+    //             res.render("users/show", {...result});
+    //         }
+    //     });
+    // },
+    subscription(req, res, next){
+        res.render("./users/subscription.ejs", {keyPublishable});//
+    },
+    upgradeToPremium(req,res,next){
+        const charge = 1500;
+        stripe.customers.create({ //Create customer https://stripe.com/docs/checkout/express
+            email: req.body.stripeEmail,
+            source: req.body.stripeToken, // obtained with Stripe.js
+          })
+          .then((customer) => { //Create charge 
+              stripe.charges.create({
+                amount: charge,
+                currency: "usd",
+                customer: customer.id,
+                description: "Charge for a purchase of a Blocipedia Membership",
+              }) 
+              .then((charges) => {
+                    userQueries.upgradeToPremium(req.user.dataValues.id);
+                    res.render("./users/successful_Charge.ejs");
+              })
+          })
+    },
+    downgradeToFree(req, res, next){
+        userQueries.downgradeToFree(req.user.dataValues.id);
+        req.flash("notice", "You are no longer a premium user!");
         res.redirect("/");
     },
 }

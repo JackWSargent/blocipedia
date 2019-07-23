@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <main>
+      <% include ../static/partials/navbar.ejs %>
+
+      <h1>User Upgrade</h1>
+      <!--<a class="btn btn-success" href="/users<% currentUser.id %>/upgradeToPremium/">Click to Subscribe for $15</a>-->
+      
+      <form method="POST" action="/users<% currentUser.id %>/upgradeToPremium/"> 
+      <!-- https://stripe.com/docs/checkout/express -->
+      <article><label>Premium Blocipedia Membership: $15.00</label></article>
+      <script 
+      src="//checkout.stripe.com/v2/checkout.js" 
+      class="stripe-button"
+      data-key=keyPublishable
+      date-locale="auto"
+      data-description="Premium"
+      data-amount="1500"></script>
+
+      </form> 
+      <a class="btn btn-secondary" href="/users<% currentUser.id %>/downgradeToFree/">Unsubscribe</a>
+    </main>
+  </body>
+</html>

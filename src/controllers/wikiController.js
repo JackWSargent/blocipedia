@@ -89,5 +89,5 @@ module.exports = {
             res.redirect(`/wikis/${req.params.id}`);
           }
         });
-      }
+    },
 }

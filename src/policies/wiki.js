@@ -1,13 +1,13 @@
 const ApplicationPolicy = require("./application");
 module.exports = class WikiPolicy extends ApplicationPolicy {
     new(){
-        return this._isAdmin() || this._isMember();
+        return this._isPremium() || this._isMember();
     }
     create(){
         return this.new();
     }
     edit(){
-        return this._isAdmin() || this._isOwner();
+        return this._isPremium() || this._isOwner();
     }
     update(){
         return this.edit();
