@@ -90,4 +90,7 @@ module.exports = {
           }
         });
     },
+    changePrivateAccess(req, res, next){
+        
+    }
 }

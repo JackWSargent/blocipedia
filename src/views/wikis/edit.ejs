@@ -19,6 +19,18 @@
           <label for="body">Body</label>
           <textarea rows="8" class="form-control" name="body" placeholder="Enter Body"><%= wiki.body %></textarea>
         </div>
+        <% if((currentUser && (currentUser.role === "admin" || currentUser.role === "premium")) && wiki.userId === currentUser.id){ %>
+        <% } %>
+        <% if(wiki.private == false) {%>
+            <label for="private">Public</label>
+        <% } else { %>
+            <label for="private">Private</label>
+        <% } %>
+        <label class="switch">
+            <input type="checkbox"  value="<%= wiki.private %>" class="form-control" name="private">
+            <span class="slider"></span>
+        </label>
+
         <button type="submit" class="btn btn-primary">Update</button>
       </form>
     </main>
