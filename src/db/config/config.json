@@ -27,5 +27,8 @@
     "operatorsAliases": false,
     "db": "process.env.DATABASE_URL"
 
+  },
+  "dialectOptions": {
+    "ssl": false
   }
 }
