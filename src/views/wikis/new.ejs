@@ -19,6 +19,19 @@
           <label for="body">Body</label>
           <textarea rows="8" class="form-control" name="body" placeholder="Enter Body"></textarea>
         </div>
+        <% if(currentUser.role == 2 || currentUser.role == 1){ %>
+        <div class="form-group">
+            <label class="switch">
+                <input type="checkbox"  class="form-control" name="private">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <% } else { %>
+        <hr>
+        <div class="form-group">
+            <label>Upgrade to Premium to be able to make a wiki private</label> 
+        </div>
+        <% } %>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
 

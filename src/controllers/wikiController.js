@@ -29,6 +29,7 @@ module.exports = {
             let newwiki = {
                 name: req.body.name,
                 body: req.body.body,
+                private: req.body.private
             }
             wikiQueries.addWiki(newwiki, (err, wiki) => {
                 if(err){
@@ -70,16 +71,15 @@ module.exports = {
           if(err || wiki == null){
             res.redirect(404, "/");
           } else {
-          const authorized = new Authorizer(req.user).edit();
-          if(authorized){
-            res.render("wikis/edit", {wiki});
-          } else {
-              //console.log("not authorized to edit");
-            req.flash("You are not authorized to do that.")
-            res.redirect(`/wikis/${req.params.id}`)
+            const authorized = new Authorizer(req.user).edit();
+            if(authorized){
+                res.render("wikis/edit", {wiki});
+            } else {
+                req.flash("You are not authorized to do that.")
+                res.redirect(`/wikis/${req.params.id}`)
+            }
           }
-        }
-      });
+        });
     },
     update(req, res, next){
         wikiQueries.updateWiki(req, req.body, (err, wiki) => {
@@ -90,4 +90,7 @@ module.exports = {
           }
         });
     },
+    changePrivateAccess(req, res, next){
+
+    }
 }

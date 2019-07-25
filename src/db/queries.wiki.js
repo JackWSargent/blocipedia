@@ -16,7 +16,8 @@ module.exports = {
       //console.log("adding wiki");
     return Wiki.create({
       name: newwiki.name,
-      body: newwiki.body
+      body: newwiki.body,
+      private: newwiki.private
     })
     .then((wiki) => {
         //console.log("wiki is " + wiki);
