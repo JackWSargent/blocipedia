@@ -26,5 +26,6 @@
     "logging": false,
     "operatorsAliases": false,
     "db": "process.env.DATABASE_URL"
+
   }
 }
