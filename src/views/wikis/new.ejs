@@ -19,17 +19,19 @@
           <label for="body">Body</label>
           <textarea rows="8" class="form-control" name="body" placeholder="Enter Body"></textarea>
         </div>
-        <% if((currentUser && (currentUser.role === "admin" || currentUser.role === "premium")) && wiki.userId === currentUser.id){ %>
-        <% } %> <!-- Not using the above line for anything, just for testing the reference of wiki-->
-            <% if((wiki.userId) == true){%>
-                <label for="private">Public</label>
-            <% } else { %>
-                <label for="private">Private</label>
-            <% } %>
+        <% if(currentUser.role == 2 || currentUser.role == 1){ %>
+        <div class="form-group">
             <label class="switch">
-                <input type="checkbox"  value="<%= wiki.private %>" class="form-control" name="private">
+                <input type="checkbox"  class="form-control" name="private">
                 <span class="slider"></span>
             </label>
+        </div>
+        <% } else { %>
+        <hr>
+        <div class="form-group">
+            <label>Upgrade to Premium to be able to make a wiki private</label> 
+        </div>
+        <% } %>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
 
