@@ -25,10 +25,6 @@
     "dialect": "postgres",
     "logging": false,
     "operatorsAliases": false,
-    "db": "process.env.DATABASE_URL"
-
-  },
-  "dialectOptions": {
-    "ssl": false
+    "use_env_variable": "DATABASE_URL"
   }
 }
