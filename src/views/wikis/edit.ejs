@@ -19,12 +19,13 @@
           <label for="body">Body</label>
           <textarea rows="8" class="form-control" name="body" placeholder="Enter Body"><%= wiki.body %></textarea>
         </div>
+        <% if(currentUser.role == 1 || currentUser.role == 2){%>
         <label for="private">Private</label>
-        
         <label class="switch">
             <input type="checkbox" checked="<%= wiki.private %>" class="" name="private">
             <span class="slider"></span>
         </label>
+        <% } %>
 
         <hr>
 
