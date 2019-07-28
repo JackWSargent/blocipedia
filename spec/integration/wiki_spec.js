@@ -48,9 +48,10 @@ describe("routes : wikis", () => {
         });
     });
     describe("member tests for wiki CRUD", () => {
-        describe("GET /wikis", () => {
-            it("should return a status code 200 and all wikis", (done) => {
+        fdescribe("GET /wikis", () => {
+            fit("should return a status code 200 and all wikis", (done) => {
                 request.get(base, (err, res, body) => {
+                    console.log(this.user);
                     expect(res.statusCode).toBe(200);
                     expect(err).toBeNull();
                     expect(body).toContain("Wikis");
@@ -63,7 +64,6 @@ describe("routes : wikis", () => {
             fit("should render a new wiki form", (done) => {
                 request.get(`${base}new`, (err, res, body) => {
                     expect(err).toBeNull();
-                    console.log(body);
                     expect(body).toContain("New Wiki");
                     done();
                 });

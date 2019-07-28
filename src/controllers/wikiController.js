@@ -13,6 +13,7 @@ module.exports = {
         })
     },
     new(req,res,next){
+        console.log(req.user);
         const authorized = new Authorizer(req.user).new();
         if(authorized){
             console.log("Authorized");
