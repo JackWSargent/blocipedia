@@ -84,27 +84,27 @@ describe("routes : users", () => {
               });
           });
       });
-      describe("POST /users/:id/downgradeToFree", () => {
-        beforeEach((done) => {
-          User.create({
-            email: "jack@bloc.io",
-            username: "jack",
-            password: "123456",
-            role: 1
-          })
-          .then((user) => {
-            console.log("user created successfully");
-            done();
-          })
-          .catch((err) => {
-            console.log(err);
-            done();
-          })
-        }) 
-        it("should make the user role to 0 instead of 1 (premium to member)", (done) => {
-          request.post(`${base}sign_in`, (err, res, body) => {
-            expect(err).toBeNull();
-          })
-        })
-      })
+      // describe("POST /users/:id/downgradeToFree", () => {
+      //   beforeEach((done) => {
+      //     User.create({
+      //       email: "jack@bloc.io",
+      //       username: "jack",
+      //       password: "123456",
+      //       role: 1
+      //     })
+      //     .then((user) => {
+      //       console.log("user created successfully");
+      //       done();
+      //     })
+      //     .catch((err) => {
+      //       console.log(err);
+      //       done();
+      //     })
+      //   }) 
+      //   it("should make the user role to 0 instead of 1 (premium to member)", (done) => {
+      //     request.post(`${base}sign_in`, (err, res, body) => {
+      //       expect(err).toBeNull();
+      //     })
+      //   })
+      // })
 });

@@ -8,10 +8,10 @@ module.exports = {
         role = req.body.role || role;
     if(id && id != 0){
         req.user = {
-            "id": id,
-            "email": email,
-            "username": username,
-            "role": role
+            id: id,
+            email: email,
+            username: username,
+            role: role
         };
     } else if(id == 0) {
         delete req.user;

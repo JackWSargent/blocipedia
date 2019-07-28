@@ -5,15 +5,17 @@ const sequelize = require("../../src/db/models/index").sequelize;
 const Wiki = require("../../src/db/models").Wiki;
 const User = require("../../src/db/models").User;
 describe("routes : wikis", () => {
-    this.wiki;
-    this.user;
+   
     beforeEach((done) => {
+        this.wiki;
+        this.user;
         sequelize.sync({force: true}).then((res) => {
             User.create({
                 username: "userhnei",
                 email: "person21@example.com",
                 password: "123456",
-                
+                role: 0,
+
             })
             .then((user) => {
                 this.user = user;
@@ -21,6 +23,7 @@ describe("routes : wikis", () => {
                     url: "http://localhost:3000/auth/fake",
                     form: {
                         id: user.id,
+                        
                         email: user.email,
                         username: user.username,
                         role: user.role
@@ -30,6 +33,7 @@ describe("routes : wikis", () => {
                     Wiki.create({
                         name: "JavaScript",
                         body: "Below is everything you need to know about JavaScript",
+                        userId: user.id
                       })
                        .then((wiki) => {
                          this.wiki = wiki;
@@ -50,15 +54,16 @@ describe("routes : wikis", () => {
                     expect(res.statusCode).toBe(200);
                     expect(err).toBeNull();
                     expect(body).toContain("Wikis");
-                    expect(body).toContain("JavaScript"); //////////////
+                    expect(body).toContain("JavaScript");
                     done();
                 });
             });
         });
-        describe("GET /wikis/new", () => {
-            it("should render a new wiki form", (done) => {
+        fdescribe("GET /wikis/new", () => {
+            fit("should render a new wiki form", (done) => {
                 request.get(`${base}new`, (err, res, body) => {
                     expect(err).toBeNull();
+                    console.log(body);
                     expect(body).toContain("New Wiki");
                     done();
                 });

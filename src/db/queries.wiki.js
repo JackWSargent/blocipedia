@@ -18,6 +18,7 @@ module.exports = {
       name: newwiki.name,
       body: newwiki.body,
       private: newwiki.private,
+      userId: newwiki.userId
     })
     .then((wiki) => {
         console.log("wiki is " + wiki);
