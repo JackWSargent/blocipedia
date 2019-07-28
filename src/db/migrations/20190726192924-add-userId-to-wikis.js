@@ -7,7 +7,6 @@ module.exports = {
       allowNull: false,
     })
   },
-
   down: (queryInterface, Sequelize) => {
     return queryInterface.removeColumn("Wikis", "userId")
   }

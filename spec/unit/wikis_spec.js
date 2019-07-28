@@ -16,6 +16,7 @@ describe("wiki", () => {
         Wiki.create({
           name: "Wiki1",
           body: "This is a wiki that is filled with knowledge",
+          userId: this.user.id
         })
         .then((wiki) => {
           this.wiki = wiki;
@@ -28,7 +29,8 @@ describe("wiki", () => {
         it("should create a wiki object with a name and a body", (done) => {
           Wiki.create({
             name: "Wiki for the wild ones",
-            body: "Wild people do wild things ya know"
+            body: "Wild people do wild things ya know",
+            userId: this.user.id
           })
           .then((wiki) => {
             expect(wiki.name).toBe("Wiki for the wild ones");

@@ -15,6 +15,7 @@ module.exports = {
     new(req,res,next){
         const authorized = new Authorizer(req.user).new();
         if(authorized){
+            console.log("Authorized");
             res.render("wikis/new")
         } else {
             console.log("Not authorized");
@@ -29,11 +30,12 @@ module.exports = {
             let newwiki = {
                 name: req.body.name,
                 body: req.body.body,
-                private: req.body.private
+                private: req.body.private,
+                userId: req.user.id
             }
             wikiQueries.addWiki(newwiki, (err, wiki) => {
                 if(err){
-                    //console.log("wiki error in controller");
+                    console.log("wiki error in controller");
                     res.redirect(500, "wikis/new");
                 } else {
                     res.redirect(303, `/wikis/${wiki.id}`);

@@ -33,6 +33,7 @@ module.exports = {
                 };
                 sgMail.send(msg);
                 passport.authenticate("local")(req, res, () => {
+                    console.log("Signed in");
                     req.flash("notice", "You've successfully signed in!");
                     res.redirect("/");
                 })

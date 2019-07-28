@@ -23,9 +23,10 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   User.associate = function(models) {
-    User.prototype.isPremium = function() {
-      return this.role === 1;
-    };
+    User.hasMany(models.Wiki, {
+      foreignKey: "userId",
+      as: "wikis"
+    });
   };
   return User;
 };
