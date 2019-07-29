@@ -81,6 +81,7 @@ module.exports = {
           })
     },
     downgradeToFree(req, res, next){
+        console.log("donwgrading");
         userQueries.downgradeToFree(req.user.dataValues.id);
         wikiQueries.makeWikisPublic(req.user.dataValues.id);
         req.flash("notice", "You are no longer a premium user!");

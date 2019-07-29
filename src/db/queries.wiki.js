@@ -90,12 +90,16 @@ module.exports = {
     });
   },
   makeWikisPublic(id){
-    return Wiki.findAll({where: {userId: id}})
-    .then((wiki) => {
-      wiki.update({ private: false})
+    return Wiki.findAll()
+    .then((wikis) => {
+      wikis.forEach(wiki => {
+        if(wiki && wiki.userId == id){
+          wiki.update({private: false})
+        }
+      });
     })
     .catch((err) => {
       console.log(err);
     })
-  }
+  },
 }
