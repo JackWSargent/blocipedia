@@ -1,4 +1,5 @@
 const userQueries = require("../db/queries.user.js");
+const wikiQueries = require("../db/queries.wiki.js");
 const passport = require("passport");
 const sgMail = require("@sendgrid/mail");
 const secretKey = process.env.SECRETKEY;
@@ -22,7 +23,6 @@ module.exports = {
                 req.flash("error", err);
                 res.redirect("/users/sign_up");
             } else {
-                //console.log("creating user: " + req.body.username);
                 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
                 const msg = {
                     to: req.body.email,
@@ -83,7 +83,7 @@ module.exports = {
     },
     downgradeToFree(req, res, next){
         userQueries.downgradeToFree(req.user.dataValues.id);
-        wikiQueries.changeToPublic(req.user.dataValues.id);
+        wikiQueries.makeWikisPublic(req.user.dataValues.id);
         req.flash("notice", "You are no longer a premium user!");
         res.redirect("/");
     },

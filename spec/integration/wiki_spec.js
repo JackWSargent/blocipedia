@@ -30,7 +30,7 @@ describe("routes : wikis", () => {
                 username: "userhnei",
                 email: "person21@example.com",
                 password: "123456",
-                role: "0"
+                role: 0
             })
             .then((user) => {
                 request.get({         
@@ -113,7 +113,7 @@ describe("routes : wikis", () => {
                         .then((wikis) => {
                             //console.log(wikis);
                             expect(err).toBeNull();
-                            expect(wikis.length).toBe(wikiCountBeforeDelete);
+                            expect(wikis.length).toBe(wikiCountBeforeDelete - 1);
                             done();
                         })
                     });
@@ -146,20 +146,20 @@ describe("routes : wikis", () => {
                         where: { id: this.wiki.id }
                     })
                     .then((wiki) => {
-                        expect(wiki.name).toBe("JavaScript");
+                        expect(wiki.name).toBe("JavaScript Frameworks");
                         done();
                     });
                 });
             });
         });
     });
-    describe("admin tests for wiki CRUD", () => {
+    describe("premium tests for wiki CRUD", () => {
         beforeEach((done) => {
             User.create({
                 username: "userhneil",
                 email: "person211@example.com",
                 password: "123456",
-                role: "1"
+                role: 1
             })
             .then((user) => {
                 request.get({         
