@@ -5,7 +5,6 @@ const sgMail = require("@sendgrid/mail");
 const secretKey = process.env.SECRETKEY;
 const keyPublishable = process.env.PUBLISHABLEKEY;
 const stripe = require('stripe')(secretKey);
-const wikiQueries = require("../db/queries.wiki.js");
 module.exports = {
     signUp(req, res, next){
         res.render("users/sign_up");
