@@ -12,6 +12,16 @@ module.exports = {
             }
         })
     },
+    private(req,res,next) {
+        console.log("Getting private wikis");
+        wikiQueries.getAllWikis((err, wikis) => {
+            if(err){
+                res.redirect(500, "static/index")
+            } else {
+                res.render("wikis/private", {wikis});
+            }
+        })
+    },
     new(req,res,next){
         const authorized = new Authorizer(req.user).new();
         if(authorized){
@@ -29,10 +39,12 @@ module.exports = {
             let newwiki = {
                 name: req.body.name,
                 body: req.body.body,
+                private: req.body.private,
+                userId: req.user.id
             }
             wikiQueries.addWiki(newwiki, (err, wiki) => {
                 if(err){
-                    //console.log("wiki error in controller");
+                    console.log("wiki error in controller");
                     res.redirect(500, "wikis/new");
                 } else {
                     res.redirect(303, `/wikis/${wiki.id}`);

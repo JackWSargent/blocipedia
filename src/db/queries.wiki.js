@@ -16,14 +16,16 @@ module.exports = {
       //console.log("adding wiki");
     return Wiki.create({
       name: newwiki.name,
-      body: newwiki.body
+      body: newwiki.body,
+      private: newwiki.private,
+      userId: newwiki.userId
     })
     .then((wiki) => {
         //console.log("wiki is " + wiki);
       callback(null, wiki);
     })
     .catch((err) => {
-        //console.log("error reached in query " + err);
+        console.log("error reached in query " + err);
       callback(err);
     })
   },
@@ -86,5 +88,14 @@ module.exports = {
         callback("Forbidden");
       }
     });
+  },
+  makeWikisPublic(id){
+    return Wiki.findAll({where: {userId: id}})
+    .then((wiki) => {
+      wiki.update({ private: false})
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   }
 }

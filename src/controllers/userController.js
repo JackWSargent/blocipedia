@@ -1,4 +1,5 @@
 const userQueries = require("../db/queries.user.js");
+const wikiQueries = require("../db/queries.wiki.js");
 const passport = require("passport");
 const sgMail = require("@sendgrid/mail");
 const secretKey = process.env.SECRETKEY;
@@ -21,7 +22,6 @@ module.exports = {
                 req.flash("error", err);
                 res.redirect("/users/sign_up");
             } else {
-                //console.log("creating user: " + req.body.username);
                 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
                 const msg = {
                     to: req.body.email,
@@ -58,16 +58,6 @@ module.exports = {
         req.flash("notice", "You've successfully signed out!");
         res.redirect("/");
     },
-    // show(req, res, next){
-    //     userQueries.getUser(req.params.id, (err, result) => {
-    //         if(err || result.user === undefined){
-    //             req.flash("notice", "No user found with that ID.");
-    //             res.redirect("/");
-    //         } else {
-    //             res.render("users/show", {...result});
-    //         }
-    //     });
-    // },
     subscription(req, res, next){
         res.render("./users/subscription.ejs", {keyPublishable});//
     },
@@ -92,6 +82,7 @@ module.exports = {
     },
     downgradeToFree(req, res, next){
         userQueries.downgradeToFree(req.user.dataValues.id);
+        wikiQueries.makeWikisPublic(req.user.dataValues.id);
         req.flash("notice", "You are no longer a premium user!");
         res.redirect("/");
     },

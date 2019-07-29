@@ -84,36 +84,36 @@ describe("routes : users", () => {
               });
           });
       });
-      describe("POST /users/:id/downgradeToFree", () => {
-        it("should downgrade from premium user to free", (done) => {
-          const options = {
-            url: base,
-            form: {
-              username: "user51",
-              email: "user1@example.com",
-              password: "123456789",
-              role: 1
-            }
-          }
-          request.post(options, (err, res, body) => {
-            User.findOne({ where: {username: "user51"}})
-            .then((user) => {
-              console.log("before role: " + user.role);
-              request.post(`${base}${user.id}/downgradeToFree/`, (err, res, body) => {
-                User.findOne({ where: {username: "user51"}})
-                .then((user) => {
-                  expect(err).toBeNull();
-                  expect(user.role).toBe(0);
-                  console.log(user.role);
-                  done();
-                })
-                .catch((err) => {
-                  console.log(err);
-                  done();
-                })
-              });
-            });
-          })
-        })
-      })
+      // describe("POST /users/:id/downgradeToFree", () => {
+      //   it("should downgrade from premium user to free", (done) => {
+      //     const options = {
+      //       url: base,
+      //       form: {
+      //         username: "user51",
+      //         email: "user1@example.com",
+      //         password: "123456789",
+      //         role: 1
+      //       }
+      //     }
+      //     request.post(options, (err, res, body) => {
+      //       User.findOne({ where: {username: "user51"}})
+      //       .then((user) => {
+      //         console.log("before role: " + user.role);
+      //         request.post(`${base}${user.id}/downgradeToFree/`, (err, res, body) => {
+      //           User.findOne({ where: {username: "user51"}})
+      //           .then((user) => {
+      //             expect(err).toBeNull();
+      //             expect(user.role).toBe(0);
+      //             console.log(user.role);
+      //             done();
+      //           })
+      //           .catch((err) => {
+      //             console.log(err);
+      //             done();
+      //           })
+      //         });
+      //       });
+      //     })
+      //   })
+      // })
 });
