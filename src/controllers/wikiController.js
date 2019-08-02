@@ -90,13 +90,16 @@ module.exports = {
         })
     },
     edit(req, res, next){
-        wikiQueries.getWiki(req.params.id, (err, wiki) => {
+        wikiQueries.getWiki(req.params.id, (err, result) => {
+            wiki = result["wiki"];
+            collaborators = result["collaborators"]
           if(err || wiki == null){
-              console.log(err);
+            console.log(err);
             res.redirect(404, "/");
           } else {
-            const authorized = new Authorizer(req.user).edit();
+            const authorized = new Authorizer(req.user, wiki).edit();
             if(authorized){
+                console.log(wiki);
                 res.render("wikis/edit", {wiki});
             } else {
                 console.log("not authorized");

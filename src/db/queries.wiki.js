@@ -32,10 +32,10 @@ module.exports = {
   },
   getWiki(id, callback){
     let results = {}
-      //console.log(id);
+      console.log(id);
     return Wiki.findByPk(id)
     .then((wiki) => {
-        //console.log("wiki found");
+        console.log("wiki found");
         //console.log(wiki);
       if(!wiki){
         callback(404);
@@ -52,8 +52,8 @@ module.exports = {
       }
     })
     .catch((err) => {
-        //console.log("could not find it");
-        //console.log(err);
+        console.log("could not find it");
+        console.log(err);
       callback(err);
     })
   },
