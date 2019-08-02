@@ -94,15 +94,15 @@ module.exports = {
             wiki = result["wiki"];
             collaborators = result["collaborators"]
           if(err || wiki == null){
-            console.log(err);
+            //console.log(err);
             res.redirect(404, "/");
           } else {
             const authorized = new Authorizer(req.user, wiki).edit();
             if(authorized){
-                console.log(wiki);
+                //console.log(wiki);
                 res.render("wikis/edit", {wiki});
             } else {
-                console.log("not authorized");
+                //console.log("not authorized");
                 req.flash("You are not authorized to do that.")
                 res.redirect(`/wikis/${req.params.id}`)
             }

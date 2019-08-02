@@ -32,11 +32,11 @@ module.exports = {
   },
   getWiki(id, callback){
     let results = {}
-      console.log(id);
+      //console.log(id);
     return Wiki.findByPk(id)
     .then((wiki) => {
-        console.log("wiki found");
-        //console.log(wiki);
+      //console.log("wiki found");
+      //console.log(wiki);
       if(!wiki){
         callback(404);
       } else {

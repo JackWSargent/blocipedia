@@ -8,6 +8,7 @@ describe("routes : wikis", () => {
 
     beforeEach((done) => {
         this.wiki;
+        this.wiki2;
         sequelize.sync({force: true}).then((res) => {
   
          Wiki.create({
@@ -156,8 +157,8 @@ describe("routes : wikis", () => {
     describe("premium tests for wiki CRUD", () => {
         beforeEach((done) => {
             User.create({
-                username: "userhneil",
-                email: "person211@example.com",
+                username: "userh1neil",
+                email: "person2121@example.com",
                 password: "123456",
                 role: 2
             })
@@ -173,7 +174,6 @@ describe("routes : wikis", () => {
                     }
                 },
                 (err, res, body) => {
-                    
                     done();
                 });
             });
@@ -210,9 +210,10 @@ describe("routes : wikis", () => {
             it("should create a new wiki and redirect", (done) => {
                 request.post(options,
                 (err, res, body) => {
+                    //this.wiki2 = wiki;
                 Wiki.findOne({where: {name: "JavaScript2"}})
                     .then((wiki) => {
-                        console.log(wiki);
+                        //console.log(wiki);
                         expect(res.statusCode).toBe(303);
                         //console.log("status code: " + res.statusCode);
                         expect(wiki.name).toBe("JavaScript2");
@@ -230,8 +231,8 @@ describe("routes : wikis", () => {
             it("should render a view with the selected wiki", (done) => {
                 request.get(`${base}${this.wiki.id}`, (err, res, body) => {
                     expect(err).toBeNull();
-                    console.log(body);
-                    expect(body).toContain("JavaScript2");
+                    //console.log(body);
+                    expect(body).toContain("JavaScript");
                     done();
                 });
             });
