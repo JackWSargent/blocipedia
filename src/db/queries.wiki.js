@@ -1,5 +1,6 @@
 const Wiki = require("./models").Wiki;
 const Authorizer = require("../policies/wiki");
+const Collaborator = require("./models").Collaborator;
 module.exports = {
   getAllWikis(callback){
     return Wiki.findAll()
@@ -30,12 +31,25 @@ module.exports = {
     })
   },
   getWiki(id, callback){
+    let results = {}
       //console.log(id);
     return Wiki.findByPk(id)
     .then((wiki) => {
         //console.log("wiki found");
         //console.log(wiki);
-      callback(null, wiki);
+      if(!wiki){
+        callback(404);
+      } else {
+        results["wiki"] = wiki;
+        Collaborator.scope({method: ["collaborators", id]}).findAll()
+        .then((collaborators) => {
+          results["collaborators"] = collaborators;
+          callback(null, results)
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+      }
     })
     .catch((err) => {
         //console.log("could not find it");

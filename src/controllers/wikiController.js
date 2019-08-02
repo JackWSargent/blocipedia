@@ -57,13 +57,23 @@ module.exports = {
         }
     },
     show(req, res, next){
-        wikiQueries.getWiki(req.params.id, (err, wiki) => {
+        wikiQueries.getWiki(req.params.id, (err, results) => {
+            wiki = results["wiki"];
+            collaborators = results["collaborators"];
             if(err || wiki === null){
-                //console.log("did not find wiki");
+                console.log(err);
                 res.redirect(404, "/");
             } else {
-                wiki.body = markdown.toHTML(wiki.body);
-                res.render("wikis/show", {wiki});
+                const authorized = new Authorizer(req.user, wiki).showCollaborators();
+                if(authorized){
+                    console.log("Authorized");
+                    wiki.body = markdown.toHTML(wiki.body);
+                    res.render("wikis/show", {wiki});
+                } else {
+                    console.log("Not authorized");
+                    req.flash("notice", "Not authorized to show collaborators");
+                    res.redirect("/wikis")
+                }
             }
         })
     },
@@ -89,7 +99,7 @@ module.exports = {
             if(authorized){
                 res.render("wikis/edit", {wiki});
             } else {
-                console.log("not autho");
+                console.log("not authorized");
                 req.flash("You are not authorized to do that.")
                 res.redirect(`/wikis/${req.params.id}`)
             }

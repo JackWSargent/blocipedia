@@ -136,7 +136,7 @@ describe("routes : wikis", () => {
                     form: {
                         name: "JavaScript Frameworks",
                         body: "There are a lot of them",
-                        private: false
+                        
                     }
                 };//
                 request.post(options,
@@ -159,9 +159,10 @@ describe("routes : wikis", () => {
                 username: "userhneil",
                 email: "person211@example.com",
                 password: "123456",
-                role: 1
+                role: 2
             })
             .then((user) => {
+                //console.log(user.role);
                 request.get({         
                     url: "http://localhost:3000/auth/fake",
                     form: {
@@ -172,6 +173,7 @@ describe("routes : wikis", () => {
                     }
                 },
                 (err, res, body) => {
+                    
                     done();
                 });
             });
@@ -210,6 +212,7 @@ describe("routes : wikis", () => {
                 (err, res, body) => {
                 Wiki.findOne({where: {name: "JavaScript2"}})
                     .then((wiki) => {
+                        console.log(wiki);
                         expect(res.statusCode).toBe(303);
                         //console.log("status code: " + res.statusCode);
                         expect(wiki.name).toBe("JavaScript2");
@@ -227,7 +230,8 @@ describe("routes : wikis", () => {
             it("should render a view with the selected wiki", (done) => {
                 request.get(`${base}${this.wiki.id}`, (err, res, body) => {
                     expect(err).toBeNull();
-                    expect(body).toContain("JavaScript");
+                    console.log(body);
+                    expect(body).toContain("JavaScript2");
                     done();
                 });
             });

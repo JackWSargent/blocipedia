@@ -1,5 +1,6 @@
 const User = require("./models").User;
 const bcrypt = require("bcryptjs");
+const Collaborator = require('./models').Collaborator;
 module.exports = {
   createUser(newUser, callback){
     const salt = bcrypt.genSaltSync();
@@ -19,13 +20,23 @@ module.exports = {
   getUser(id, callback){
     let result = {};
     User.findByPk(id)
-    .then((user) => {
-      if(!user) {
-        callback(404);
-      } else {
+   .then((user) => {
+     if(!user) {
+       //console.log("user not found")
+       callback(404);
+     } else {
+       //console.log("user is valid");
        result["user"] = user;
-      }
-    })
+       Collaborator.scope({method: ["collaborator", id]}).findAll()
+       .then((collaborator) => {
+         result["collaborator"] = collaborator;
+         callback(null, result);
+       })
+       .catch((err) => {
+         callback(err);
+       })
+     }
+   })
   },
   getAllUsers(callback){
     return User.findAll()
