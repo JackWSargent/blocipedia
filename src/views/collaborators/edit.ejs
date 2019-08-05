@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container page">
+
+      
+
+      <% if (wiki.private == true) { %>
+         <h1 class="page-label">Edit Collaborators</h1>
+         <% if( collaborators ){ %>
+            <ul class="list-group">
+              <% collaborators.forEach((collaborator) => { %>
+                <li class="list-group-item">
+                <%= collaborator.User.username %>
+                  <% if(currentUser && (currentUser.role == 1 || currentUser.role == 2)) { %>
+                    <form action="/wikis/<%= wiki.id %>/collaborators/delete" method="POST">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <input type="hidden" value="<%= collaborator.User.id %>" class="form-control" name="collaborator">
+                    </form>
+                  <% } %>
+                </li>
+              <% }) %>
+            </ul>
+         <% } else { %>
+         <% console.log("no collaborators"); %>
+         <% } %>
+      <% }; %>
+      <% if(currentUser && (currentUser.role == 1 || currentUser.role == 2)) { %>
+        <form action="/wikis/<%= wiki.id %>/collaborators/new" method="POST">
+          <div class="input-group">
+            <input type="text" class="form-control" name="collaborator" placeholder="Enter Username">
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </form>
+      <% }; %>
+      <a href="/wikis/<%= wiki.id %>" class="btn btn-secondary">Back</a>
+    
+
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+  </body>
+</html>

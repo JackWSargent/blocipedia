@@ -1,16 +1,19 @@
-const collaboratorQueries = ("../db/queries.collaborator.js");
+const collaboratorQueries = require("../db/queries.collaborator.js");
+const wikiQueries = require("../db/queries.wiki.js");
 const Authorizer = require("../policies/application");
-const wikiQueries = ("../db/queries.wiki.js");
+
 
 module.exports = {
-    new(req, callback){
+    new(req, res, next){
         collaboratorQueries.new(req, (err, collaborator) => {
             if(err){
-                console.log(err);
                 req.flash("error", err);
-            } 
-            res.redirect(req.headers.referer)
-        })
+                console.log(err);
+            }
+            //console.log("Redirecting back");
+            //console.log("redirecting to " + req.headers.referer);
+            res.redirect(`/wikis/${req.params.wikiId}/collaborators`);
+        });
     },
     edit(req, res, next){
         wikiQueries.getWiki(req.params.wikiId, (err, wiki) => {
@@ -30,7 +33,7 @@ module.exports = {
         })
     },
     delete(req, res, next){
-        if(!req.user){
+        if(req.user){
             collaboratorQueries.delete(req, (err, collaborator) => {
                     if(err){
                         console.log(err);

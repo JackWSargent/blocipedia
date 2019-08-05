@@ -31,6 +31,15 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'userId',
       as: 'collaborators'
     });
+    User.prototype.isAdmin = () => {
+      return this.role == 2;
+    }
+    User.prototype.isPremium = () => {
+      return this.role == 1;
+    }
+    User.prototype.isMember = () => {
+      return this.role == 0;
+    }
   };
   return User;
 };

@@ -5,45 +5,51 @@ const Wiki = require("./models").Wiki;
 
 module.exports = {
     new(req, callback){
-            if(req.user.username === req.body.collaborator){ //Cannot add the same user as the one that is acting on this action
-                return callback("Cannot add yourself");
+        if (req.user.username == req.body.collaborator){
+          return callback("Cannot add yourself to collaborators!");
+        }
+        User.findAll({
+          where: {
+            username: req.body.collaborator
+          }
+        })
+        .then((users)=>{
+          if(!users[0]){
+            return callback("User not found.");
+          }
+          Collaborator.findAll({
+            where: {
+              userId: users[0].id,
+              wikiId: req.params.wikiId,
             }
-            User.findAll({
-                where: req.body.collaborator
-            })
-            .then((users) => {
-                if(!users){
-                    return callback("Users not found");
-                }
-                Collaborator.findAll({
-                    where: {
-                        userId: users[0].id,
-                        wikiId: req.params.wikiId //Check wiki queries 
-                    }
-                })
-                .then((collaborator) => {
-                    if(collaborator.length != 0){ //Already in the collaborator association
-                        return callback(`${req.body.collaborator} is already in the collaborators`);
-                    }
-                })
-                let newCollaborator = {
-                    userId: users[0].id,
-                    wikiId: req.params.wikiId
-                }
-                return Collaborator.create(newCollaborator)
-                    .then((collaborator) => {
-                        callback(null, collaborator);
-                    })
-                    .catch((err) => {
-                        callback(null, err);
-                    })
-                .catch((err) => {
-                    callback(null, err);
-                })
+          })
+          .then((collaborators)=>{
+            if(collaborators.length != 0){
+              return callback(`${req.body.collaborator} is already a collaborator on this wiki.`);
+            }
+            let newCollaborator = {
+              userId: users[0].id,
+              wikiId: req.params.wikiId
+            };
+            return Collaborator.create(newCollaborator)
+            .then((collaborator) => {
+                console.log("success " + collaborator);
+              callback(null, collaborator);
             })
             .catch((err) => {
-                callback(null, err);
+                console.log("error3" + err);
+              callback(err, null);
             })
+          })
+          .catch((err)=>{
+            console.log("error2" + err);
+            callback(err, null);
+          })
+        })
+        .catch((err)=>{
+            console.log("error" + err);
+          callback(err, null);
+        })
     },
     delete(){
         const collaboratorId = req.body.collaborator;
