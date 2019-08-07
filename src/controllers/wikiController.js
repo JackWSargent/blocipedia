@@ -1,7 +1,7 @@
 const wikiQueries = require("../db/queries.wiki.js");
 const Authorizer = require("../policies/wiki");
 const markdown = require( "markdown" ).markdown;
-
+const collaborator = require("../db/models").Collaborator;
 module.exports = {
     index(req,res,next) {
         //console.log("Getting wiks");
@@ -19,7 +19,7 @@ module.exports = {
             if(err){
                 res.redirect(500, "static/index")
             } else {
-                res.render("wikis/private", {wikis});
+                res.render("wikis/private", {wikis, collaborator});
             }
         })
     },

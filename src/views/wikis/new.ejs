@@ -22,15 +22,15 @@
         <% if(currentUser && (currentUser.role == 1 || currentUser.role == 2)){ %>
         Public or Private
         <div class="form-group">
-            <label class="switch">
-                <input type="checkbox"  class="form-control" name="private">
-                <span class="slider"></span>
-            </label>
+            <select name="private">
+              <option value="false">Public</option>
+              <option value="true">Private</option>
+            </select>
         </div>
         <% } else { %>
         <hr>
         <div class="form-group">
-            <label>Upgrade to Premium to be able to make a wiki private</label> 
+            <label>Upgrade to premium to make a wiki private</label> 
         </div>
         <% } %>
         <button type="submit" class="btn btn-primary">Submit</button>

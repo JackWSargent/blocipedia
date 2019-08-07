@@ -2,8 +2,8 @@ const userQueries = require("../db/queries.user.js");
 const wikiQueries = require("../db/queries.wiki.js");
 const passport = require("passport");
 const sgMail = require("@sendgrid/mail");
-const secretKey = process.env.SECRETKEY;
-const keyPublishable = process.env.PUBLISHABLEKEY;
+const secretKey = "sk_test_UpmWeAejUQCmCuXSdqc7rFd600fFB104zH";
+const keyPublishable = "pk_test_HuYw0bsV4lODDe8aER3FWtvW00nsWf3GHU";
 const stripe = require('stripe')(secretKey);
 module.exports = {
     signUp(req, res, next){

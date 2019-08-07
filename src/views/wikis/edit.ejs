@@ -24,14 +24,19 @@
         Public or Private
         <div class="form-group">
             <select name="private">
+              <% if(wiki.private == false){ %>
               <option value="false">Public</option>
               <option value="true">Private</option>
+              <% } else { %>
+              <option value="true">Private</option>
+              <option value="false">Public</option>
+              <% } %>
             </select>
         </div>
         <% } else { %>
         <hr>
         <div class="form-group">
-            <label>Upgrade to Premium to be able to make a wiki private</label> 
+            <label>Upgrade to premium to make a wiki private</label> 
         </div>
         <% } %>
         <button type="submit" class="btn btn-primary">Update</button>
