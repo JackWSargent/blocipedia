@@ -3,7 +3,11 @@ const Authorizer = require("../policies/wiki");
 const Collaborator = require("./models").Collaborator;
 module.exports = {
   getAllWikis(callback){
-    return Wiki.findAll()
+    Wiki.findAll({
+      include: [{
+           model: Collaborator, as: "collaborators", attributes: ["userId"]
+      }],
+    })
     .then((wikis) => {
         //console.log("Found all wikis");
       callback(null, wikis);

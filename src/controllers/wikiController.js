@@ -19,6 +19,8 @@ module.exports = {
             if(err){
                 res.redirect(500, "static/index")
             } else {
+               console.log('wiki is:', wikis)
+                console.log('collaborator is:', collaborator)
                 res.render("wikis/private", {wikis, collaborator});
             }
         })
