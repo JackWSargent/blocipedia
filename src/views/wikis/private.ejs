@@ -14,7 +14,14 @@
       <% } %>
       <ul class="list-group">
         <% wikis.forEach((wiki) => { %>
-          <% if(wiki.private == true && currentUser.role == 1 || currentUser.role == 2 || collaborator.isCollaborator(currentUser.id, wiki.id)) { %>
+          <% wiki.collaborators.forEach(collaborator => { %>
+             <% if(collaborator.userId == currentUser.id) { %>
+                <li class="list-group-item">
+                  <a href="/wikis/<%= wiki.id %>"> <%= wiki.name %> </a>
+                </li>
+             <% } %>
+          <% }) %>
+          <% if((wiki.private == true && currentUser.role == 1 || currentUser.role == 2)) { %>
             <li class="list-group-item">
               <a href="/wikis/<%= wiki.id %>"> <%= wiki.name %> </a>
             </li>

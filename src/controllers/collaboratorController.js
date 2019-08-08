@@ -32,6 +32,9 @@ module.exports = {
             }
         })
     },
+    show(req, res, next){
+        
+    },
     delete(req, res, next){
         if(req.user){
             collaboratorQueries.delete(req, (err, collaborator) => {

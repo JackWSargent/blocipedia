@@ -38,11 +38,6 @@ module.exports = (sequelize, DataTypes) => {
         order: [["createdAt", "ASC"]]
       }
     });
-
-    Collaborator.prototype.isCollaborator = (userId, wikiId) => {
-      if(this.userId == userId && this.wikiId == wikiId)
-      return true;
-    }
   };
   return Collaborator;
 };

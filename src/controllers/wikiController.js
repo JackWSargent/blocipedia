@@ -64,7 +64,7 @@ module.exports = {
                 console.log(err);
                 res.redirect(404, "/");
             } else {
-                const authorized = new Authorizer(req.user, wiki).showCollaborators();
+                const authorized = new Authorizer(req.user, wiki).edit();
                 if(authorized){
                     console.log("Authorized");
                     wiki.body = markdown.toHTML(wiki.body);
